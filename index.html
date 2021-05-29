@@ -31,16 +31,26 @@
                 : subString) + "&hellip;";
         };
 
+        function azarnumero(min = 1, max = 10){
+            let hasta = max;
+            let desde = min;
+            let numero = Math.floor(Math.random()*(hasta -(desde -1))) + desde;
+            return numero;
+        }
+
         $(document).ready(function () {
 
-            $("#formulario div button").on("click", function () {
+            //$("#formulario div button").on("click", function () {
+            $('#formulario form').submit(function() {
 
                 //$("#resultado .row").html("");
                 $("#resultado .row").empty();
 
                 let busqueda = $("#busqueda").val();
 
-                let url = `https://api.giphy.com/v1/gifs/search?api_key=FY8W8P3R8oMK696mvMmspydqIIdTsE3b&limit=10&q=${busqueda}`;
+                let offset = azarnumero(1,100);
+
+                let url = `https://api.giphy.com/v1/gifs/search?offset=${offset}&api_key=FY8W8P3R8oMK696mvMmspydqIIdTsE3b&limit=10&q=${busqueda}`;
 
                 $.get(url, function (respuesta) {
                     //console.log(respuesta.data[0].images.fixed_height.url);
@@ -77,6 +87,7 @@
 
                 });
 
+                return false; //evita que el formulario se envie. 
             });
 
         });
@@ -93,15 +104,17 @@
                 <h3>Formulario</h3>
                 <hr>
 
-                <div class="mb-3 row">
-                    <label for="busqueda" class="col-sm-2 col-form-label">Buscar: </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="busqueda">
+                <form>
+                    <div class="mb-3 row">
+                        <label for="busqueda" class="col-sm-2 col-form-label">Buscar: </label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="busqueda">
+                        </div>
                     </div>
-                </div>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-primary" type="button">BUSCAR GIFS!</button>
-                </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="submit">BUSCAR GIFS!</button>
+                    </div>
+                </form>
 
             </div>
             <div id="resultado" class="col-sm-12 col-md-6 col-lg-9">

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <script>
+        //https://restcountries.eu/rest/v2/lang/es
+        
+        // function loquehace(data){
+        //     console.log(data);
+        // }
+        
+
+        $.get(`http://api.openweathermap.org/data/2.5/weather?q=Temuco&&appid=e92d1169cb066caf5d176bc676f8e00b`, function(res){
+            console.log(res);
+        });
+
+
+        $.get("https://restcountries.eu/rest/v2/lang/es", function(data, status){
+            console.log(status);
+            console.log(data);
+            let hola = "";
+            
+
+            // for(let indice = 0; indice < data.length ; indice++){
+            //     console.log(data[indice].name);
+            // }
+
+            // for (let indice in data){
+            //     console.log("DEL FOR IN: ",data[indice].name);
+            // }
+
+            for (let pais of data){
+                // console.log("DEL FOR OF", pais.name);
+                //console.log(pais.name);
+//                console.log(pais.borders);
+
+                for (let borde of pais.borders){
+                   $("#contenido").append(`<p>${pais.name} colinda con ${borde}</p>`);
+                }
+
+            }
+
+        });
+
+        // let arr = [
+        //     {nombre:"TEMUCO"},
+        //     {nombre:"SANTIAGO"},
+        //     {nombre:"ARICA"}
+        // ];
+
+        // for (let ciudad of arr){
+        //     console.log(ciudad.nombre);
+        // }
+
+    </script>
+
+</head>
+<body>
+    <div id="contenido">
+
+    </div>
+</body>
+</html>
